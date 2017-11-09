@@ -6,18 +6,18 @@ import android.view.ViewGroup;
 
 import com.anubansal.profilepoc.ViewModel.UIModel;
 
-import java.util.List;
-
 /**
  * Created by anubansal on 09/11/17.
  */
 
-public class Presenter {
+public class Presenter implements IPresenterContract {
 
     private DataFetcher dataFetcher;
     private UIModel uiModel;
     private UIBuilder uiBuilder;
     private Context context;
+    private ViewGroup parentView;
+    private View childView;
 
     /**
      * Task 1 : Initialises DataFetcher and gets the data in a specific format i.e., UIModel (analogous to Kairos Widget)
@@ -26,11 +26,19 @@ public class Presenter {
      */
     public Presenter(Context context, ViewGroup parentView) {
         this.context = context;
-        dataFetcher = new DataFetcher(context);
+        this.parentView = parentView;
+        dataFetcher = new DataFetcher(context, this);
         uiModel = dataFetcher.getUIModel();
 //        List<View> views = dataFetcher.getViews();
         uiBuilder = new UIBuilder();
+        childView = uiBuilder.getView(context, uiModel);
+        parentView.addView(childView);
+    }
+
+    @Override
+    public void onDataUpdate(UIModel uiModel) {
         View rootView = uiBuilder.getView(context, uiModel);
+        parentView.removeAllViews();
         parentView.addView(rootView);
     }
 }

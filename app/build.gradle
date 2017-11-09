@@ -30,4 +30,6 @@ dependencies {
     implementation 'com.facebook.fresco:fbcore:1.5.0'
     implementation 'com.facebook.fresco:fresco:1.5.0'
     implementation 'com.android.support:recyclerview-v7:26.0.2'
+    implementation 'com.squareup.okhttp3:okhttp:3.9.0'
+    implementation 'org.apache.httpcomponents.client5:httpclient5-parent:5.0-alpha2'
 }

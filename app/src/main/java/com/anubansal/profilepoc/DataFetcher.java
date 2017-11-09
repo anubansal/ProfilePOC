@@ -3,6 +3,7 @@ package com.anubansal.profilepoc;
 import android.content.Context;
 import android.util.Log;
 
+import com.anubansal.profilepoc.DataSource.DataObserver;
 import com.anubansal.profilepoc.DataSource.ISource;
 import com.anubansal.profilepoc.DataSource.JsonFile;
 import com.anubansal.profilepoc.ViewModel.UIModel;
@@ -17,17 +18,19 @@ import java.util.List;
  * Created by anubansal on 09/11/17.
  */
 
-public class DataFetcher {
+public class DataFetcher implements DataObserver {
 
     private static final String TAG = DataFetcher.class.getSimpleName();
 
     private List<ISource> dataSources;
     private UIModel uiModel;
     private Context context;
+    private IPresenterContract presenter;
 
-    public DataFetcher(Context context) {
+    public DataFetcher(Context context, IPresenterContract presenter) {
         this.context = context;
-        JSONObject json = new JsonFile(context).fetchData();
+        this.presenter = presenter;
+        JSONObject json = new JsonFile(context, this).fetchData();
         Log.d(TAG, "jsonStream  : " + json.toString());
         if (null == json) {
 //            json =
@@ -49,7 +52,13 @@ public class DataFetcher {
         return uiModel;
     }
 
-//    public List<View> getViews() {
+    @Override
+    public void onDataModified(JSONObject data) {
+        uiModel = parseJSON(data.toString());
+        presenter.onDataUpdate(uiModel);
+    }
+
+    //    public List<View> getViews() {
 //        List<View> viewList = new ArrayList<>();
 //        for (Template template : uiModel.getTemplates()) {
 //            Log.d("UIBuilderTest", " template type : " + template.getType());

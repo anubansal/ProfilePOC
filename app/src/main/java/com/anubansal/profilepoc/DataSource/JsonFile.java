@@ -47,11 +47,13 @@ public class JsonFile implements ISource, HttpResponseListener {
     public void onResponse(String response) {
         JSONObject jsonObject = null;
         Log.d("JsonFile", "response : " + response);
-        try {
-            jsonObject = new JSONObject(response);
-        } catch (JSONException e) {
-            Log.d("JSonFile", "e : " + e.getMessage());
+        if (response != null) {
+            try {
+                jsonObject = new JSONObject(response);
+            } catch (JSONException e) {
+                Log.d("JSonFile", "e : " + e.getMessage());
+            }
+            callback.onDataModified(jsonObject);
         }
-        callback.onDataModified(jsonObject);
     }
 }

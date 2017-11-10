@@ -31,13 +31,14 @@ public class TestFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.test_fragment, container, false);
         ArrayList<String> list = new ArrayList<>();
-        for (int i=0 ;i<50; i++) {
+        for (int i=0 ;i<500; i++) {
             list.add("I am item number " + i);
         }
         TestAdapter adapter = new TestAdapter(getActivity(), list);
         RecyclerView recyclerView = rootView.findViewById(R.id.recycler_view);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this.getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setAdapter(adapter);
         return rootView;
     }

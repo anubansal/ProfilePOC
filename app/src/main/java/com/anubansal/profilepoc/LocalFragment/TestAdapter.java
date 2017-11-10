@@ -2,6 +2,7 @@ package com.anubansal.profilepoc.LocalFragment;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,8 @@ import java.util.List;
  */
 
 public class TestAdapter extends RecyclerView.Adapter {
+
+    private static final String TAG = TestAdapter.class.getSimpleName();
 
     Context mContext;
     List<String> mList = new ArrayList<>();
@@ -34,6 +37,7 @@ public class TestAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        Log.d(TAG, "onBindViewHolder for position : " + position);
         TestViewHolder holder1 = (TestViewHolder) holder;
         String item = mList.get(position);
         holder1.text.setText(item);

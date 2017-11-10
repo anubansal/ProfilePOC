@@ -5,12 +5,12 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.support.v4.widget.NestedScrollView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 
 import com.anubansal.profilepoc.LocalFragment.TestFragment;
 import com.anubansal.profilepoc.UI.Widget;
@@ -23,12 +23,12 @@ import com.anubansal.profilepoc.ViewModel.UIModel;
 
 public class UIBuilder {
 
-    private ScrollView scrollView;
+    private NestedScrollView scrollView;
     private LinearLayout baseView;
 
     public View getView(Context context, UIModel uiModel) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
-        scrollView = (ScrollView) layoutInflater.inflate(R.layout.uibuilder_base, null);
+        scrollView = (NestedScrollView) layoutInflater.inflate(R.layout.uibuilder_base, null);
         baseView = scrollView.findViewById(R.id.base);
 
         for (Template template : uiModel.getTemplates()) {
